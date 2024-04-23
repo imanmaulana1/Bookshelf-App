@@ -1,0 +1,45 @@
+:root {
+  /* DARK THEME */
+  --primary-clr: #141414;
+  --secondary-clr: #1f1f1f;
+  --text-clr: hsl(0, 0%, 100%);
+  --text-accent-clr: hsl(0, 0%, 67%);
+  --nav-hover-clr: #333333;
+  --nav-active-clr: #c5f82a;
+  --red-clr: #f82a2a;
+  --green-clr: #54c81e;
+
+  --ff-inter: 'Inter', sans-serif;
+
+  --fw-normal: 400;
+  --fw-semi: 600;
+  --fw-bold: 700;
+}
+
+:is(*, *::before, *::after) {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font: normal var(--fw-normal) 1rem / normal var(--ff-inter);
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style-type: none;
+}
