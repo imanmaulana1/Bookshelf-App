@@ -20,11 +20,44 @@
       rel="stylesheet"
     />
 
+    <!-- Remix Icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.css"
+      integrity="sha512-dUOcWaHA4sUKJgO7lxAQ0ugZiWjiDraYNeNJeRKGOIpEq4vroj1DpKcS3jP0K4Js4v6bXk31AAxAxaYt3Oi9xw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./dist/css/styles.css" />
 
     <!-- Custom JS -->
     <script src="./dist/js/script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <header class="header"></header>
+    <section class="sidebar">
+      <header class="sidebar-header">
+        <div class="sidebar-title">
+          <h1>Menu</h1>
+          <i class="ri-sun-line"></i>
+        </div>
+        <img src="./assets/images/logo.svg" alt="Bookshelf Logo" />
+        <button class="btn">
+          <span>Add Book</span><i class="ri-add-circle-line"></i>
+        </button>
+        <nav>
+          <h2 class="nav-title">Shelf</h2>
+          <ul class="nav-links"></ul>
+        </nav>
+      </header>
+
+      <footer class="sidebar-footer">
+        Copyright &copy; 2024 <strong>Iman Maulana</strong>. All rights
+        reserved.
+      </footer>
+    </section>
+    <main></main>
+  </body>
 </html>
