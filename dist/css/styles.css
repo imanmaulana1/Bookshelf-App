@@ -77,7 +77,7 @@ li {
 
 .header {
   grid-area: header;
-  padding: 2.2rem 2rem;
+  padding: 2.2rem 4rem;
   background-color: var(--primary-clr);
   outline: 1px solid red;
 }
@@ -86,6 +86,11 @@ li {
   display: none;
   color: var(--text-clr);
   font-size: 2.4rem;
+}
+
+.header-title h1 {
+  color: var(--text-clr);
+  font-size: 3rem;
 }
 
 /* ============ SIDEBAR ============ */
@@ -216,6 +221,10 @@ main {
       ' main';
   }
 
+  .header {
+    padding: 2rem;
+  }
+
   .header .darkmode {
     display: none;
   }
@@ -223,6 +232,16 @@ main {
   .header .collapse {
     display: block;
     cursor: pointer;
+  }
+
+  .header-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header-title h1 {
+    font-size: 2.4rem;
   }
 
   .sidebar {
@@ -235,12 +254,6 @@ main {
 
   .sidebar.show {
     left: 0;
-  }
-
-  .header-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 }
 
@@ -290,8 +303,12 @@ main {
 
   .link-item {
     flex: 1;
-   display: flex;
-   justify-content: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .link-item.active{
+    background-color: var(--hover-1-clr);
   }
 
   .item-name {
