@@ -51,3 +51,10 @@ collapseBtn.addEventListener('click', () => {
   sidebar.classList.toggle('show');
   sidebar.style.transition = 'all .4s ease';
 });
+
+const dateObj = new Date().toUTCString();
+console.log(dateObj);
+
+const currentDate = document.getElementById('#today');
+console.log(currentDate);
+currentDate.innerText = dateObj.slice(0, 16);
