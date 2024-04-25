@@ -1,16 +1,15 @@
 :root {
   /* DARK THEME */
-  --primary-clr: #141414;
-  --secondary-clr: #1f1f1f;
+  --primary-clr: rgb(20, 20, 20);
+  --secondary-clr: rgb(31, 31, 31);
   --text-clr: hsl(0, 0%, 100%);
   --text-accent-clr: hsl(0, 0%, 67%);
+  --card-clr: hsl(0, 0%, 20%);
 
-  --hover-1-clr: #333333;
-
-  --red-clr: #f82a2a;
-  --green-clr: #54c81e;
-  --blue-clr: #1e4bc8;
-  --yellow: #f8d92a;
+  --red-clr: #d63131;
+  --green-clr: #28a533;
+  --blue-clr: #3141d6;
+  --yellow: #d6aa31;
 
   --ff-inter: 'Inter', sans-serif;
 
@@ -58,15 +57,17 @@ li {
 .btn {
   padding: 1.4rem 2rem;
   border: none;
-  border-radius: 18px;
+  border-radius: 12px;
   cursor: pointer;
   font-family: inherit;
   font-size: 1.4rem;
-  transition: background-color 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 .btn:hover {
-  background-color: var(--hover-1-clr);
+  background-color: var(--text-clr);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 .btn span {
@@ -78,8 +79,10 @@ li {
 .header {
   grid-area: header;
   padding: 2.2rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background-color: var(--primary-clr);
-  outline: 1px solid red;
 }
 
 .header i {
@@ -90,7 +93,41 @@ li {
 
 .header-title h1 {
   color: var(--text-clr);
-  font-size: 3rem;
+  font-size: 3.6rem;
+}
+
+.header-title h2 {
+  color: var(--text-accent-clr);
+  font-size: 1.6rem;
+  margin-top: 0.5rem;
+}
+
+.header-search {
+  width: 400px;
+  background-color: var(--text-clr);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 1rem;
+}
+
+.header-search input {
+  flex: 1;
+  padding: 0 1rem;
+  outline: none;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.header-search button {
+  background-color: transparent;
+  border: none;
+}
+
+.header-search button i {
+  display: block;
+  color: var(--secondary-clr);
+  font-size: 1.6rem;
 }
 
 /* ============ SIDEBAR ============ */
@@ -209,6 +246,106 @@ nav {
 main {
   grid-area: main;
   background-color: var(--primary-clr);
+  overflow-y: scroll;
+  padding: 2rem;
+}
+
+.card-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  align-content: flex-start;
+  align-items: stretch;
+  gap: 2rem;
+}
+
+.card {
+  background-color: var(--card-clr);
+  border-radius: 8px;
+  padding: 1.4rem;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card.add-book {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card .add {
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.card .add i {
+  font-size: 6rem;
+  color: var(--text-accent-clr);
+  transition: color 0.4s ease;
+}
+
+.add:hover i {
+  color: var(--text-clr);
+}
+
+.card-header h3 {
+  color: var(--text-accent-clr);
+  margin-top: 0.3rem;
+}
+
+.card-header span {
+  color: var(--text-clr);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background-color: var(--yellow);
+}
+
+:is(.card-desc, .card-header) {
+  color: var(--text-clr);
+}
+
+.card-time {
+  color: var(--text-accent-clr);
+}
+
+.card-cta {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.6s ease;
+}
+
+.card:hover .card-cta {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+:is(.card-header, .card-footer) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+:is(.btn-edit, .btn-delete) {
+  width: max-content;
+  height: max-content;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+:is(.btn-edit, .btn-delete):hover {
+  background-color: transparent;
+  box-shadow: rgba(116, 116, 116, 0.35) 0px 5px 15px;
+}
+
+:is(.btn-edit, .btn-delete) i {
+  color: var(--text-clr);
 }
 
 /* ============ MEDIA QUERIES ============ */
@@ -216,6 +353,7 @@ main {
 @media screen and (width <= 1024px) {
   body {
     grid-template-columns: 1fr;
+    /* grid-template-rows: 150px 1fr; */
     grid-template-areas:
       ' header'
       ' main';
@@ -223,6 +361,8 @@ main {
 
   .header {
     padding: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .header .darkmode {
@@ -235,6 +375,7 @@ main {
   }
 
   .header-title {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -242,6 +383,22 @@ main {
 
   .header-title h1 {
     font-size: 2.4rem;
+  }
+
+  .header-title h2 {
+    font-size: 1.2rem;
+  }
+
+  .header-search {
+    width: 400px;
+    padding: 1.2rem 1rem;
+  }
+
+  .header-search input {
+    font-size: 1.3rem;
+  }
+  .header-search button i {
+    font-size: 1.2rem;
   }
 
   .sidebar {
@@ -287,6 +444,11 @@ main {
     color: var(--yellow);
   }
 
+  .header-search {
+    width: 80%;
+    padding: 1rem 0.8rem;
+  }
+
   .sidebar {
     position: static;
     padding: 1.2rem 0.8rem;
@@ -307,7 +469,7 @@ main {
     justify-content: center;
   }
 
-  .link-item.active{
+  .link-item.active {
     background-color: var(--hover-1-clr);
   }
 

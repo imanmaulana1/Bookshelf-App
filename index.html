@@ -38,9 +38,16 @@
   <body>
     <header class="header">
       <div class="header-title">
-        <h1>All Books</h1>
+        <div class="wrapper">
+          <h1>All Books</h1>
+          <h2 id="#today"></h2>
+        </div>
         <i class="ri-menu-fold-line collapse"></i>
         <i class="ri-sun-line darkmode"></i>
+      </div>
+      <div class="header-search">
+        <button><i class="ri-search-line"></i></button>
+        <input type="search" id="search" placeholder="Search book..." />
       </div>
     </header>
     <section class="sidebar">
@@ -53,6 +60,7 @@
         <button class="btn">
           <span>Add Book</span><i class="ri-add-circle-line"></i>
         </button>
+
         <nav>
           <h2 class="nav-title">Shelf</h2>
           <ul class="nav-links"></ul>
@@ -64,6 +72,57 @@
         reserved.
       </footer>
     </section>
-    <main></main>
+    <main>
+      <div class="card-wrapper">
+        <div class="card">
+          <header class="card-header">
+            <div class="card-title">
+              <h2>Harry Potter</h2>
+              <h3>JK. Rowlins</h3>
+            </div>
+            <span>Unread</span>
+          </header>
+          <section class="card-desc">
+            <p>Lorem ipsum dolor</p>
+          </section>
+          <footer class="card-footer">
+            <p class="card-time">24-08-2024</p>
+            <div class="card-cta">
+              <button class="btn btn-delete">
+                <i class="ri-delete-bin-line"></i>
+              </button>
+              <button class="btn btn-edit"><i class="ri-edit-line"></i></button>
+            </div>
+          </footer>
+        </div>
+        <div class="card">
+          <header class="card-header">
+            <div class="card-title">
+              <h2>Harry Potter</h2>
+              <h3>JK. Rowlins</h3>
+            </div>
+            <span>Status</span>
+          </header>
+          <section class="card-desc">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Doloremque, corporis.
+            </p>
+          </section>
+          <footer class="card-footer">
+            <p class="card-time">24-08-2024</p>
+            <div class="card-cta">
+              <button class="btn btn-delete">
+                <i class="ri-delete-bin-line"></i>
+              </button>
+              <button class="btn btn-edit"><i class="ri-edit-line"></i></button>
+            </div>
+          </footer>
+        </div>
+        <div class="card add-book">
+          <button class="add"><i class="ri-add-line"></i></button>
+        </div>
+      </div>
+    </main>
   </body>
 </html>
