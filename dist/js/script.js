@@ -4,37 +4,62 @@ function getLinkItems() {
   return linkItems;
 }
 
-let linkItem = '';
-const navSidebar = [
-  {
-    icon: 'ri-home-6-line',
-    name: 'All Books',
-  },
-  {
-    icon: 'ri-book-open-line',
-    name: 'Read',
-  },
-  {
-    icon: 'ri-book-line',
-    name: 'Unread',
-  },
-];
+function printNavSidebar() {
+  let linkItem = '';
 
-navSidebar.map((item, idx) => {
-  linkItem += `<li class="link-item ${idx == 0 ? 'active' : ''}">
-                <div class="item-name">
-                    <i class="${item.icon}"></i>
-                    <h3>${item.name}</h3>
-                </div>
-                <span class="item-length">2</span>
-                </li>`;
-});
+  const navSidebar = [
+    {
+      icon: 'ri-home-6-line',
+      name: 'All Books',
+    },
+    {
+      icon: 'ri-book-open-line',
+      name: 'Read',
+    },
+    {
+      icon: 'ri-book-line',
+      name: 'Unread',
+    },
+  ];
+
+  navSidebar.map((item, idx) => {
+    linkItem += `<li class="link-item ${idx == 0 ? 'active' : ''}">
+                  <div class="item-name">
+                      <i class="${item.icon}"></i>
+                      <h3>${item.name}</h3>
+                  </div>
+                  <span class="item-length">2</span>
+                  </li>`;
+  });
+
+  return linkItem;
+}
+
+function getCurrentDate() {
+  const dateObj = new Date().toUTCString();
+
+  return dateObj.slice(0, 16);
+}
+
+function filterAllBook() {
+  headerTitle.innerText = 'All Books';
+}
+
+function filterReadBook() {
+  headerTitle.innerText = 'Read';
+}
+
+function filterUnreadBook() {
+  headerTitle.innerText = 'Unread';
+}
+
+const headerTitle = document.getElementById('#title');
 
 const navLinks = document.querySelector('.nav-links');
-navLinks.innerHTML = linkItem;
+navLinks.innerHTML = printNavSidebar();
 
 const linkItems = getLinkItems();
-linkItems.forEach((item) => {
+linkItems.forEach((item, idx) => {
   item.addEventListener('click', function () {
     const items = getLinkItems();
     items.forEach((item) => {
@@ -42,6 +67,20 @@ linkItems.forEach((item) => {
     });
 
     this.classList.add('active');
+
+    switch (idx) {
+      case 0:
+        filterAllBook();
+        break;
+      case 1:
+        filterReadBook();
+        break;
+      case 2:
+        filterUnreadBook();
+        break;
+      default:
+        break;
+    }
   });
 });
 
@@ -52,9 +91,5 @@ collapseBtn.addEventListener('click', () => {
   sidebar.style.transition = 'all .4s ease';
 });
 
-const dateObj = new Date().toUTCString();
-console.log(dateObj);
-
 const currentDate = document.getElementById('#today');
-console.log(currentDate);
-currentDate.innerText = dateObj.slice(0, 16);
+currentDate.innerText = getCurrentDate();
