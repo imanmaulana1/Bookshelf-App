@@ -58,6 +58,16 @@ const headerTitle = document.getElementById('#title');
 const navLinks = document.querySelector('.nav-links');
 navLinks.innerHTML = printNavSidebar();
 
+const collapseBtn = document.querySelector('.collapse');
+collapseBtn.addEventListener('click', () => {
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.classList.toggle('show');
+  sidebar.style.transition = 'all .4s ease';
+});
+
+const currentDate = document.getElementById('#today');
+currentDate.innerText = getCurrentDate();
+
 const linkItems = getLinkItems();
 linkItems.forEach((item, idx) => {
   item.addEventListener('click', function () {
@@ -65,6 +75,9 @@ linkItems.forEach((item, idx) => {
     items.forEach((item) => {
       item.classList.remove('active');
     });
+
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.remove('show');
 
     this.classList.add('active');
 
@@ -83,13 +96,3 @@ linkItems.forEach((item, idx) => {
     }
   });
 });
-
-const collapseBtn = document.querySelector('.collapse');
-collapseBtn.addEventListener('click', () => {
-  const sidebar = document.querySelector('.sidebar');
-  sidebar.classList.toggle('show');
-  sidebar.style.transition = 'all .4s ease';
-});
-
-const currentDate = document.getElementById('#today');
-currentDate.innerText = getCurrentDate();
