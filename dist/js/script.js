@@ -41,6 +41,18 @@ function getCurrentDate() {
   return dateObj.slice(0, 16);
 }
 
+function showModal(idModal) {
+  return document.getElementById(`${idModal}`).classList.add('show');
+}
+
+function closeModal() {
+  const addModal = document.getElementById('add-modal');
+  addModal.classList.remove('show');
+
+  const updateModal = document.getElementById('update-modal');
+  updateModal.classList.remove('show');
+}
+
 function filterAllBook() {
   headerTitle.innerText = 'All Books';
 }
@@ -94,5 +106,26 @@ linkItems.forEach((item, idx) => {
       default:
         break;
     }
+  });
+});
+
+const btnAddBooks = document.querySelectorAll('.add');
+btnAddBooks.forEach((btnAddBook) => {
+  btnAddBook.addEventListener('click', () => {
+    showModal('add-modal');
+  });
+});
+
+const btnEditBooks = document.querySelectorAll('.btn--update');
+btnEditBooks.forEach((btnEditBook) => {
+  btnEditBook.addEventListener('click', () => {
+    showModal('update-modal');
+  });
+});
+
+const btnCancelBooks = document.querySelectorAll('.btn--cancel');
+btnCancelBooks.forEach((btnCancelBook) => {
+  btnCancelBook.addEventListener('click', () => {
+    closeModal();
   });
 });
