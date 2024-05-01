@@ -9,7 +9,7 @@
   --red-clr: #ff0000;
   --green-clr: #33a024;
   --blue-clr: #316bd6;
-  --yellow: #d6aa31;
+  --yellow: #d6a231;
 
   --ff-inter: 'Inter', sans-serif;
 
@@ -280,7 +280,7 @@ main {
   background-color: var(--card-clr);
   border-radius: 8px;
   padding: 1.4rem;
-  min-height: 150px;
+  min-height: 180px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -314,10 +314,18 @@ main {
   margin-top: 0.3rem;
 }
 
-.card-header span {
+.card-shelf {
+  max-width: max-content;
   color: var(--text-clr);
   padding: 0.5rem 1rem;
   border-radius: 20px;
+}
+
+.card-shelf.success {
+  background-color: var(--green-clr);
+}
+
+.card-shelf.danger {
   background-color: var(--yellow);
 }
 
@@ -327,6 +335,12 @@ main {
 
 .card-time {
   color: var(--text-accent-clr);
+}
+
+.card-desc {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
 }
 
 .card-cta {
@@ -428,12 +442,12 @@ main {
   column-gap: 1rem;
 }
 
-.form-control label {
+.form-control :is(label, span) {
   font-size: 1.8rem;
   color: var(--text-clr);
 }
 
-.form-control input {
+.form-control :is(input, textarea) {
   width: 100%;
   padding: 1rem 1.8rem;
   color: var(--text-clr);
@@ -443,6 +457,39 @@ main {
   border-radius: 8px;
   outline: none;
   border: none;
+}
+
+.form-control input[type='checkbox'] {
+  display: none;
+}
+
+.form-control:has(input[type='checkbox']) label {
+  width: 80px;
+  height: 30px;
+  background-color: var(--primary-clr);
+  border-radius: 200px;
+  cursor: pointer;
+  position: relative;
+}
+
+.form-control:has(input[type='checkbox']) label::before {
+  content: '';
+  position: absolute;
+  background-color: #555555;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  margin: 4px;
+  transition: 0.4s;
+}
+
+.form-control input:checked + label {
+  background-color: var(--blue-clr);
+}
+
+.form-control input:checked + label::before {
+  transform: translateX(48px);
+  background-color: #ddd;
 }
 
 /* ============ MEDIA QUERIES ============ */
@@ -596,12 +643,27 @@ main {
     font-size: 1.8rem;
   }
 
-  .form-control label {
+  .form-control :is(label, span) {
     font-size: 1.4rem;
   }
 
   .form-control input {
     font-size: 1.2rem;
+  }
+
+  .form-control:has(input[type='checkbox']) label {
+    width: 60px;
+    height: 20px;
+  }
+
+  .form-control:has(input[type='checkbox']) label::before {
+    width: 14px;
+    height: 14px;
+    margin: 3px;
+  }
+
+  .form-control input:checked + label::before {
+    transform: translateX(40px);
   }
 
   :is(.btn--save, .btn--edit, .btn--cancel) {

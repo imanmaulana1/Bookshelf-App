@@ -71,41 +71,11 @@
       </footer>
     </section>
     <main>
-      <section class="card-wrapper">
-        <div class="card">
-          <header class="card-header">
-            <div class="card-title">
-              <h2>Harry Potter</h2>
-              <h3>JK. Rowlins</h3>
-            </div>
-            <span>Status</span>
-          </header>
-          <section class="card-desc">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloremque, corporis.
-            </p>
-          </section>
-          <footer class="card-footer">
-            <p class="card-time">24-08-2024</p>
-            <div class="card-cta">
-              <button class="btn btn-delete">
-                <i class="ri-delete-bin-line"></i>
-              </button>
-              <button class="btn btn--update">
-                <i class="ri-edit-line"></i>
-              </button>
-            </div>
-          </footer>
-        </div>
-        <div class="card add-book">
-          <button class="add"><i class="ri-add-line"></i></button>
-        </div>
-      </section>
+      <section class="card-wrapper"></section>
       <div class="modal" id="add-modal">
         <div class="wrapper-form" id="add-form">
           <h2 class="title-form">Add Book</h2>
-          <form id="my-form">
+          <form id="form-save-book">
             <div class="form-group">
               <div class="form-control">
                 <label for="title">Title</label>
@@ -141,12 +111,16 @@
                   required
                 />
               </div>
-              <!-- <div class="form__group">
-                <div class="checkbox-wrapper-1">
-                  <input id="example-1" class="substituted" type="checkbox" aria-hidden="true" />
-                  <label for="example-1">Finished reading</label>
-                </div>
-              </div> -->
+              <div class="form-control">
+                <label for="note">Note</label>
+                <textarea name="note" id="note" rows="5"></textarea>
+              </div>
+              <div class="form-control">
+                <span>Already Read?</span>
+                <input type="checkbox" name="check" id="check" />
+
+                <label for="check" class="check-toggle"></label>
+              </div>
               <div class="form-control">
                 <button type="button" class="btn btn--cancel">Cancel</button>
                 <button type="submit" class="btn btn--save" id="btn-save">
