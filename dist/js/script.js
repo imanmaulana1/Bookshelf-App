@@ -66,6 +66,9 @@ function closeModal() {
 
   const updateModal = document.getElementById('update-modal');
   updateModal.classList.remove('show');
+
+  const deleteModal = document.getElementById('delete-modal');
+  deleteModal.classList.remove('show');
 }
 
 // FILTER SHELF FEATURE
@@ -109,7 +112,7 @@ function filterUnreadBook() {
 function showData(values) {
   let value = '';
 
-  values.map((data) => {
+  values.map((data, idx) => {
     value += `
         <div class="card">
           <header class="card-header">
@@ -128,7 +131,7 @@ function showData(values) {
           <footer class="card-footer">
             <p class="card-time">${data.time}</p>
             <div class="card-cta">
-              <button class="btn btn-delete"><i class="ri-delete-bin-line"></i></button>
+              <button class="btn btn--delete" id="btn-delete"><i class="ri-delete-bin-line"></i></button>
               <button class="btn btn--update" onclick="showModal('update-modal')"><i class="ri-edit-line"></i></button>
             </div>
           </footer>
@@ -147,6 +150,8 @@ function showData(values) {
   const cardWrapper = document.querySelector('.card-wrapper');
   cardWrapper.innerHTML =
     datas.length > 0 ? `${value} ${cardAddBook}` : cardAddBook;
+
+  handleDelete();
 }
 
 function addData(e) {
@@ -172,8 +177,6 @@ function addData(e) {
     time: today,
   };
 
-  console.log(payload);
-
   const datas = localStorage.getItem('values')
     ? JSON.parse(localStorage.getItem('values'))
     : [];
@@ -181,6 +184,27 @@ function addData(e) {
   datas.push(payload);
 
   localStorage.setItem('values', JSON.stringify(datas));
+}
+
+function handleDelete() {
+  const btnDelete = document.querySelectorAll('#btn-delete');
+
+  btnDelete.forEach((item, idx) => {
+    item.addEventListener('click', () => {
+      showModal('delete-modal');
+      index = idx;
+    });
+  });
+}
+
+function deleteData() {
+  const datas = localStorage.getItem('values')
+    ? JSON.parse(localStorage.getItem('values'))
+    : [];
+
+  datas.splice(index, 1);
+  localStorage.setItem('values', JSON.stringify(datas));
+  location.reload();
 }
 
 // =============================================== //
@@ -232,19 +256,16 @@ btnAddBooks.forEach((btnAddBook) => {
   });
 });
 
-const btnEditBooks = document.querySelectorAll('.btn--update');
-btnEditBooks.forEach((btnEditBook) => {
-  btnEditBook.addEventListener('click', () => {
-    showModal('update-modal');
-  });
-});
-
 const btnCancelBooks = document.querySelectorAll('.btn--cancel');
 btnCancelBooks.forEach((btnCancelBook) => {
   btnCancelBook.addEventListener('click', () => {
     closeModal();
   });
 });
+
+let index = '';
+const btnDelete = document.getElementById('btn-delete');
+btnDelete.addEventListener('click', deleteData);
 
 // Submit save book
 const formSaveBook = document.getElementById('form-save-book');

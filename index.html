@@ -82,7 +82,7 @@
                 <input
                   type="text"
                   name="title"
-                  id="title-add"
+                  id="title"
                   placeholder="e.g. Harry Potter"
                   autocomplete="off"
                   required
@@ -93,7 +93,7 @@
                 <input
                   type="text"
                   name="author"
-                  id="author-add"
+                  id="author"
                   placeholder="e.g. J.K. Rowling"
                   autocomplete="off"
                   required
@@ -104,7 +104,7 @@
                 <input
                   type="number"
                   name="year"
-                  id="year-add"
+                  id="year"
                   min="0"
                   placeholder="e.g. 1997"
                   autocomplete="off"
@@ -124,7 +124,7 @@
               <div class="form-control">
                 <button type="button" class="btn btn--cancel">Cancel</button>
                 <button type="submit" class="btn btn--save" id="btn-save">
-                  Save book
+                  Save
                 </button>
               </div>
             </div>
@@ -134,10 +134,10 @@
       <div class="modal" id="update-modal">
         <div class="wrapper-form" id="update-form">
           <h2 class="title-form">Update Book</h2>
-          <form id="my-form">
+          <form id="form-update-book">
             <div class="form-group">
               <div class="form-control">
-                <label for="title">Title</label>
+                <label for="title-update">Title</label>
                 <input
                   type="text"
                   name="title"
@@ -148,7 +148,7 @@
                 />
               </div>
               <div class="form-control">
-                <label for="author">Author</label>
+                <label for="author-update">Author</label>
                 <input
                   type="text"
                   name="author"
@@ -159,7 +159,7 @@
                 />
               </div>
               <div class="form-control">
-                <label for="year">Year</label>
+                <label for="year-update">Year</label>
                 <input
                   type="number"
                   name="year"
@@ -170,16 +170,35 @@
                   required
                 />
               </div>
-              <!-- <div class="form__group">
-                <div class="checkbox-wrapper-1">
-                  <input id="example-1" class="substituted" type="checkbox" aria-hidden="true" />
-                  <label for="example-1">Finished reading</label>
-                </div>
-              </div> -->
+              <div class="form-control">
+                <label for="note-update">Note</label>
+                <textarea name="note" id="note-update" rows="5"></textarea>
+              </div>
+              <div class="form-control">
+                <span>Already Read?</span>
+                <input type="checkbox" name="check" id="check-update" />
+                <label for="check-update" class="check-toggle"></label>
+              </div>
               <div class="form-control">
                 <button type="button" class="btn btn--cancel">Cancel</button>
                 <button type="submit" class="btn btn--edit" id="btn-update">
-                  Update book
+                  Update
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal" id="delete-modal">
+        <div class="wrapper-form" id="delete-form">
+          <h2 class="title-form">Delete Book</h2>
+          <h3 class="lead-form">Are you sure you want to delete this item?</h3>
+          <form id="delete">
+            <div class="form-group">
+              <div class="form-control">
+                <button type="button" class="btn btn--cancel">Cancel</button>
+                <button type="button" class="btn btn--danger" id="btn-delete">
+                  Delete
                 </button>
               </div>
             </div>

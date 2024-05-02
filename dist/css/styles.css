@@ -74,7 +74,7 @@ li {
   margin-right: 1rem;
 }
 
-:is(.btn--save, .btn--edit, .btn--cancel) {
+:is(.btn--save, .btn--edit, .btn--cancel, .btn--danger) {
   color: var(--text-clr);
 }
 
@@ -82,13 +82,24 @@ li {
   background-color: #555555;
 }
 
-.btn--save,
-.btn--edit {
+:is(.btn--danger:hover, #delete-form .btn--cancel:hover) {
+  background-color: var(--primary-clr);
+}
+
+:is(.btn--save, .btn--edit) {
   background-color: var(--blue-clr);
 }
 
 .btn--cancel {
   background-color: var(--red-clr);
+}
+
+.btn--danger {
+  background-color: var(--red-clr);
+}
+
+#delete-form .btn--cancel {
+  background-color: #555555;
 }
 
 /* ============ HEADER ============ */
@@ -363,7 +374,7 @@ main {
   justify-content: space-between;
 }
 
-:is(.btn--update, .btn-delete) {
+:is(.btn--update, .btn--delete) {
   width: max-content;
   height: max-content;
   background-color: transparent;
@@ -371,12 +382,12 @@ main {
   padding: 0;
 }
 
-:is(.btn--update, .btn-delete):hover {
+:is(.btn--update, .btn--delete):hover {
   background-color: transparent;
   box-shadow: rgba(116, 116, 116, 0.35) 0px 5px 15px;
 }
 
-:is(.btn--update, .btn-delete) i {
+:is(.btn--update, .btn--delete) i {
   color: var(--text-clr);
 }
 
@@ -415,7 +426,7 @@ main {
   transition: all 0.4s ease-in-out;
 }
 
-:is(#add-modal.show .wrapper-form, #update-modal.show .wrapper-form) {
+:is(#add-modal.show .wrapper-form, #update-modal.show .wrapper-form, #delete-modal.show .wrapper-form) {
   transform: translateY(0);
 }
 
@@ -423,6 +434,12 @@ main {
   margin-bottom: 2rem;
   color: var(--text-clr);
   font-size: 2.2rem;
+}
+
+.lead-form {
+  margin-bottom: 4rem;
+  font-size: 1.8rem;
+  color: var(--text-clr);
 }
 
 .form-group {
