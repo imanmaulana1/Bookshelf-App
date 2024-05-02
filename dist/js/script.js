@@ -48,6 +48,23 @@ function getCurrentDate() {
   return dateObj.slice(0, 16);
 }
 
+function getToday() {
+  let today = new Date();
+
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1;
+
+  let yyyy = today.getFullYear();
+
+  dd = dd < 10 ? `0${dd}` : dd;
+
+  mm = mm < 10 ? `0${mm}` : mm;
+
+  today = `${dd}-${mm}-${yyyy}`;
+
+  return today;
+}
+
 function hideSidebar() {
   return () => {
     const sidebar = document.querySelector('.sidebar');
@@ -131,8 +148,8 @@ function showData(values) {
           <footer class="card-footer">
             <p class="card-time">${data.time}</p>
             <div class="card-cta">
-              <button class="btn btn--delete" id="btn-delete"><i class="ri-delete-bin-line"></i></button>
-              <button class="btn btn--update" onclick="showModal('update-modal')"><i class="ri-edit-line"></i></button>
+              <button class="btn btn--delete" onclick="handleDelete(${idx})"><i class="ri-delete-bin-line"></i></button>
+              <button class="btn btn--update" onclick="updateData(${idx})"><i class="ri-edit-line"></i></button>
             </div>
           </footer>
         </div>
@@ -150,23 +167,10 @@ function showData(values) {
   const cardWrapper = document.querySelector('.card-wrapper');
   cardWrapper.innerHTML =
     datas.length > 0 ? `${value} ${cardAddBook}` : cardAddBook;
-
-  handleDelete();
 }
 
 function addData(e) {
-  let today = new Date();
-
-  let dd = today.getDate();
-  let mm = today.getMonth() + 1;
-
-  let yyyy = today.getFullYear();
-
-  dd = dd < 10 ? `0${dd}` : dd;
-
-  mm = mm < 10 ? `0${mm}` : mm;
-
-  today = `${dd}-${mm}-${yyyy}`;
+  let today = getToday();
 
   const payload = {
     title: e.target['title'].value,
@@ -186,18 +190,55 @@ function addData(e) {
   localStorage.setItem('values', JSON.stringify(datas));
 }
 
-function handleDelete() {
-  const btnDelete = document.querySelectorAll('#btn-delete');
+function updateData(index) {
+  showModal('update-modal');
 
-  btnDelete.forEach((item, idx) => {
-    item.addEventListener('click', () => {
-      showModal('delete-modal');
-      index = idx;
-    });
+  const datas = localStorage.getItem('values')
+    ? JSON.parse(localStorage.getItem('values'))
+    : [];
+
+  // Parse input field
+  const title = document.getElementById('title-update');
+  title.value = datas[index].title;
+
+  const author = document.getElementById('author-update');
+  author.value = datas[index].author;
+
+  const year = document.getElementById('year-update');
+  year.value = datas[index].year;
+
+  const note = document.getElementById('note-update');
+  note.value = datas[index].note;
+
+  const isChecked = document.getElementById('check-update');
+  isChecked.checked = datas[index].isComplete == 0 ? false : true;
+
+  // Submit Update
+  const btnUpdate = document.getElementById('form-update-book');
+  btnUpdate.addEventListener('submit', (e) => {
+    let today = getToday();
+
+    datas[index].title = e.target['title-update'].value;
+    datas[index].author = e.target['author-update'].value;
+    datas[index].year = parseInt(e.target['year-update'].value);
+    datas[index].note = e.target['note-update'].value;
+    datas[index].isComplete = e.target['check-update'].checked;
+    datas[index].time = today;
+
+    localStorage.setItem('values', JSON.stringify(datas));
   });
 }
 
-function deleteData() {
+function handleDelete(idx) {
+  showModal('delete-modal');
+
+  const btnDelete = document.getElementById('btn-delete');
+  btnDelete.addEventListener('click', () => {
+    deleteData(idx);
+  });
+}
+
+function deleteData(index) {
   const datas = localStorage.getItem('values')
     ? JSON.parse(localStorage.getItem('values'))
     : [];
@@ -263,9 +304,36 @@ btnCancelBooks.forEach((btnCancelBook) => {
   });
 });
 
-let index = '';
-const btnDelete = document.getElementById('btn-delete');
-btnDelete.addEventListener('click', deleteData);
+// Darkmode
+const btnDarkMode = document.querySelectorAll('.darkmode');
+btnDarkMode.forEach((item) => {
+  item.addEventListener('click', function () {
+    this.classList.toggle('ri-sun-line');
+    if (!this.classList.contains('ri-sun-line')) {
+      this.classList.add('ri-moon-line');
+
+      document.documentElement.style.setProperty('--primary-clr', '#fafafa');
+      document.documentElement.style.setProperty('--secondary-clr', '#ddd');
+      document.documentElement.style.setProperty('--text-clr', '#292929');
+      document.documentElement.style.setProperty(
+        '--text-accent-clr',
+        '#737373'
+      );
+      document.documentElement.style.setProperty('--card-clr', '#ebebeb');
+      document.documentElement.style.setProperty('--hover-clr', '#b4b4b4');
+    } else {
+      document.documentElement.style.setProperty('--primary-clr', '#141414');
+      document.documentElement.style.setProperty('--secondary-clr', '#1f1f1f');
+      document.documentElement.style.setProperty('--text-clr', '#ffffff');
+      document.documentElement.style.setProperty(
+        '--text-accent-clr',
+        '#ababab'
+      );
+      document.documentElement.style.setProperty('--card-clr', '#333333');
+      document.documentElement.style.setProperty('--hover-clr', '#555555');
+    }
+  });
+});
 
 // Submit save book
 const formSaveBook = document.getElementById('form-save-book');

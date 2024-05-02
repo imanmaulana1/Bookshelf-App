@@ -1,10 +1,14 @@
 :root {
-  /* DARK THEME */
-  --primary-clr: rgb(20, 20, 20);
-  --secondary-clr: rgb(31, 31, 31);
-  --text-clr: hsl(0, 0%, 100%);
-  --text-accent-clr: hsl(0, 0%, 67%);
-  --card-clr: hsl(0, 0%, 20%);
+  --primary-clr: #141414;
+  --secondary-clr: #1f1f1f;
+  --text-clr: #ffffff;
+  --text-accent-clr: #ababab;
+  --text-btn-clr: #fff;
+  --card-clr: #333333;
+  --input-clr: rgb(255, 255, 255);
+  --input-border: 1px solid #ddd;
+  --hover-clr: #555555;
+  --hover-btn-clr: #7a7a7a;
 
   --red-clr: #ff0000;
   --green-clr: #33a024;
@@ -55,6 +59,7 @@ li {
 }
 
 .btn {
+  background-color: var(--card-clr);
   padding: 1.4rem 2rem;
   border: none;
   border-radius: 12px;
@@ -74,32 +79,38 @@ li {
   margin-right: 1rem;
 }
 
-:is(.btn--save, .btn--edit, .btn--cancel, .btn--danger) {
+.btn.add {
   color: var(--text-clr);
 }
 
-:is(.btn--save:hover, .btn--edit:hover, .btn--cancel:hover) {
-  background-color: #555555;
+.btn.add:hover {
+  background-color: var(--card-clr);
+}
+
+:is(.btn--save, .btn--edit, .btn--cancel, .btn--danger) {
+  color: var(--text-btn-clr);
 }
 
 :is(.btn--danger:hover, #delete-form .btn--cancel:hover) {
-  background-color: var(--primary-clr);
+  background-color: var(--hover-btn-clr);
 }
 
-:is(.btn--save, .btn--edit) {
+:is(.btn--save, .btn--edit, .btn--save:hover, .btn--edit:hover) {
   background-color: var(--blue-clr);
 }
 
-.btn--cancel {
-  background-color: var(--red-clr);
+.btn--cancel,
+.btn--cancel:hover {
+  background-color: var(--hover-clr);
 }
 
-.btn--danger {
+.btn--danger,
+.btn--danger:hover {
   background-color: var(--red-clr);
 }
 
 #delete-form .btn--cancel {
-  background-color: #555555;
+  background-color: var(--hover-clr);
 }
 
 /* ============ HEADER ============ */
@@ -132,8 +143,9 @@ li {
 
 .header-search {
   width: 400px;
-  background-color: var(--text-clr);
+  background-color: var(--input-clr);
   border-radius: 12px;
+  border: var(--input-border);
   display: flex;
   align-items: center;
   padding: 1.2rem 1rem;
@@ -236,7 +248,7 @@ nav {
 }
 
 .link-item:hover {
-  background-color: #555555;
+  background-color: var(--hover-clr);
 }
 
 .item-name {
@@ -327,7 +339,7 @@ main {
 
 .card-shelf {
   max-width: max-content;
-  color: var(--text-clr);
+  color: var(--text-btn-clr);
   padding: 0.5rem 1rem;
   border-radius: 20px;
 }
@@ -426,7 +438,11 @@ main {
   transition: all 0.4s ease-in-out;
 }
 
-:is(#add-modal.show .wrapper-form, #update-modal.show .wrapper-form, #delete-modal.show .wrapper-form) {
+:is(
+    #add-modal.show .wrapper-form,
+    #update-modal.show .wrapper-form,
+    #delete-modal.show .wrapper-form
+  ) {
   transform: translateY(0);
 }
 
@@ -492,7 +508,7 @@ main {
 .form-control:has(input[type='checkbox']) label::before {
   content: '';
   position: absolute;
-  background-color: #555555;
+  background-color: var(--hover-clr);
   width: 22px;
   height: 22px;
   border-radius: 50%;
@@ -664,7 +680,7 @@ main {
     font-size: 1.4rem;
   }
 
-  .form-control input {
+  .form-control :is(input, textarea) {
     font-size: 1.2rem;
   }
 
