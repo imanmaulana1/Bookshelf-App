@@ -45,10 +45,12 @@
         <i class="ri-menu-fold-line collapse"></i>
         <i class="ri-sun-line darkmode"></i>
       </div>
-      <div class="header-search">
-        <button><i class="ri-search-line"></i></button>
-        <input type="search" id="search" placeholder="Search book..." />
-      </div>
+      <form id="form-search-book">
+        <div class="header-search">
+          <button><i class="ri-search-line"></i></button>
+          <input type="search" id="search" placeholder="Search book..." />
+        </div>
+      </form>
     </header>
     <section class="sidebar">
       <header class="sidebar-header">
@@ -72,6 +74,7 @@
     </section>
     <main>
       <section class="card-wrapper"></section>
+      <div id="toast-wrapper"></div>
       <div class="modal" id="add-modal">
         <div class="wrapper-form" id="add-form">
           <h2 class="title-form">Add Book</h2>
@@ -183,6 +186,24 @@
                 <button type="button" class="btn btn--cancel">Cancel</button>
                 <button type="submit" class="btn btn--edit" id="btn-update">
                   Update
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal" id="edit-modal">
+        <div class="wrapper-form" id="delete-form">
+          <h2 class="title-form">Edit Status</h2>
+          <h3 class="lead-form">
+            Are you sure you want to move this item to another shelf?
+          </h3>
+          <form id="delete">
+            <div class="form-group">
+              <div class="form-control">
+                <button type="button" class="btn btn--cancel">Cancel</button>
+                <button type="button" class="btn btn--warning" id="btn-edit">
+                  Edit
                 </button>
               </div>
             </div>

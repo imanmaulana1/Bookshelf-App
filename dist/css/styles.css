@@ -87,7 +87,7 @@ li {
   background-color: var(--card-clr);
 }
 
-:is(.btn--save, .btn--edit, .btn--cancel, .btn--danger) {
+:is(.btn--save, .btn--edit, .btn--warning, .btn--cancel, .btn--danger) {
   color: var(--text-btn-clr);
 }
 
@@ -104,6 +104,11 @@ li {
   background-color: var(--hover-clr);
 }
 
+.btn--warning,
+.btn--warning:hover {
+  background-color: var(--yellow);
+}
+
 .btn--danger,
 .btn--danger:hover {
   background-color: var(--red-clr);
@@ -111,6 +116,60 @@ li {
 
 #delete-form .btn--cancel {
   background-color: var(--hover-clr);
+}
+
+#toast-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 400px;
+  margin-inline: auto;
+  padding: 2rem;
+  pointer-events: none;
+}
+
+#toast-wrapper.show {
+  z-index: 999;
+  pointer-events: initial;
+}
+
+#toast-wrapper .toast {
+  width: 100%;
+  position: relative;
+  padding: 1.6rem;
+  color: var(--text-clr);
+  font-size: 1.4rem;
+  background-color: var(--primary-clr);
+  border: 1px solid var(--secondary-clr);
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.toast::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+  background-color: var(--green-clr);
+  animation: loading 1.8s linear forwards;
+  -webkit-animation: loading 1.8s linear forwards;
+}
+
+.toast i {
+  color: var(--green-clr);
+}
+
+@keyframes loading {
+  100% {
+    width: 0;
+  }
 }
 
 /* ============ HEADER ============ */
@@ -141,6 +200,10 @@ li {
   margin-top: 0.5rem;
 }
 
+#searchBook {
+  width: 100%;
+}
+
 .header-search {
   width: 400px;
   background-color: var(--input-clr);
@@ -166,8 +229,9 @@ li {
 
 .header-search button i {
   display: block;
-  color: var(--secondary-clr);
   font-size: 1.6rem;
+  color: var(--secondary-clr);
+  cursor: pointer;
 }
 
 /* ============ SIDEBAR ============ */
@@ -342,6 +406,12 @@ main {
   color: var(--text-btn-clr);
   padding: 0.5rem 1rem;
   border-radius: 20px;
+  cursor: pointer;
+}
+
+.card-shelf:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 .card-shelf.success {
@@ -414,7 +484,7 @@ main {
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-  z-index: 999;
+  z-index: 998;
   opacity: 0;
   pointer-events: none;
   transition: all 0.4s ease-in;
@@ -635,7 +705,7 @@ main {
   }
 
   .header-search {
-    width: 80%;
+    width: 100%;
     padding: 1rem 0.8rem;
   }
 
@@ -699,8 +769,17 @@ main {
     transform: translateX(40px);
   }
 
-  :is(.btn--save, .btn--edit, .btn--cancel) {
+  :is(.btn--save, .btn--edit, .btn--warning, .btn--danger, .btn--cancel) {
     padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+  }
+
+  .title-form {
+    font-size: 1.4rem;
+  }
+
+  .lead-form {
+    margin-bottom: 2rem;
     font-size: 1.2rem;
   }
 }
