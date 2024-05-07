@@ -192,6 +192,14 @@ function closeModal() {
   deleteModal.classList.remove('show');
 }
 
+function hideSidebar() {
+  return () => {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('show');
+    sidebar.style.transition = 'all .4s ease';
+  };
+}
+
 function printNavSidebar() {
   let linkItem = '';
 
@@ -232,38 +240,29 @@ function getLinkItems() {
   return linkItems;
 }
 
-function getCurrentDate() {
-  const dateObj = new Date().toUTCString();
+function showToastNotification(msg) {
+  const toastBox = document.getElementById('toast-wrapper');
+  toastBox.classList.add('show');
 
-  return dateObj.slice(0, 16);
+  let message = `<i class="ri-checkbox-circle-fill"></i> ${msg}`;
+
+  let toast = document.createElement('div');
+  toast.classList.add('toast');
+
+  toast.innerHTML = message;
+
+  toastBox.appendChild(toast);
+
+  setTimeout(() => {
+    toast.remove();
+    toastBox.classList.remove('show');
+
+    closeModal();
+    location.reload();
+  }, 1800);
 }
 
-function getToday() {
-  let today = new Date();
-
-  let dd = today.getDate();
-  let mm = today.getMonth() + 1;
-
-  let yyyy = today.getFullYear();
-
-  dd = dd < 10 ? `0${dd}` : dd;
-
-  mm = mm < 10 ? `0${mm}` : mm;
-
-  today = `${dd}-${mm}-${yyyy}`;
-
-  return today;
-}
-
-function hideSidebar() {
-  return () => {
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.classList.toggle('show');
-    sidebar.style.transition = 'all .4s ease';
-  };
-}
-
-// =============================================== //
+// =============================================== \\
 
 // index link nav
 let index = 0;
