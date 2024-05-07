@@ -136,8 +136,6 @@ function updateData(id) {
       timeZone: 'Asia/Jakarta',
     }).format(datetime);
 
-    console.log(stringDate);
-
     const payload = {
       id: datas[index].id,
       title: e.target['title'].value,
@@ -309,9 +307,14 @@ const datas = localStorage.getItem('values')
   : [];
 
 // Print current date HTML
-const getCurrentDate = new Date().toUTCString().slice(0, 16);
+const datetime = new Date();
+const stringDate = new Intl.DateTimeFormat('en-GB', {
+  dateStyle: 'full',
+  timeZone: 'Asia/Jakarta',
+}).format(datetime);
+
 const currentDate = document.getElementById('#today');
-currentDate.innerText = getCurrentDate;
+currentDate.innerText = stringDate;
 
 // Print navigation sidebar HTML
 const navLinks = document.querySelector('.nav-links');
