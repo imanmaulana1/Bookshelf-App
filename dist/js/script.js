@@ -172,6 +172,42 @@ function deleteData(id) {
   showToastNotification('Data successfully deleted');
 }
 
+// Function to search data
+function handleSearchData() {
+  return (e) => {
+    e.preventDefault();
+
+    let inputValue = e.target['search'].value;
+
+    let result;
+
+    switch (index) {
+      case 0:
+        result = datas.filter((item) =>
+          item.title.toLowerCase().includes(inputValue.toLowerCase())
+        );
+        inputValue != '' ? showData(result) : showData(datas);
+        break;
+      case 1:
+        const readBook = datas.filter((item) => item.isComplete == true);
+        result = readBook.filter((item) =>
+          item.title.toLowerCase().includes(inputValue.toLowerCase())
+        );
+        inputValue != '' ? showData(result) : showData(readBook);
+        break;
+      case 2:
+        const unReadBook = datas.filter((item) => item.isComplete != true);
+        result = unReadBook.filter((item) =>
+          item.title.toLowerCase().includes(inputValue.toLowerCase())
+        );
+        inputValue != '' ? showData(result) : showData(unReadBook);
+        break;
+      default:
+        break;
+    }
+  };
+}
+
 // ================================================ \\
 
 function showModal(idModal) {
