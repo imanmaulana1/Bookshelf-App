@@ -511,6 +511,7 @@ main {
 :is(
     #add-modal.show .wrapper-form,
     #update-modal.show .wrapper-form,
+    #edit-modal.show .wrapper-form,
     #delete-modal.show .wrapper-form
   ) {
   transform: translateY(0);
