@@ -88,42 +88,6 @@ function closeModal() {
   deleteModal.classList.remove('show');
 }
 
-// FILTER SHELF FEATURE
-
-function filterAllBook() {
-  headerTitle.innerText = 'All Books';
-
-  const datas = localStorage.getItem('values')
-    ? JSON.parse(localStorage.getItem('values'))
-    : [];
-
-  showData(datas);
-}
-
-function filterReadBook() {
-  headerTitle.innerText = 'Read';
-
-  const datas = localStorage.getItem('values')
-    ? JSON.parse(localStorage.getItem('values'))
-    : [];
-
-  const readBook = datas.filter((data) => data.isComplete == 1);
-
-  showData(readBook);
-}
-
-function filterUnreadBook() {
-  headerTitle.innerText = 'Unread';
-
-  const datas = localStorage.getItem('values')
-    ? JSON.parse(localStorage.getItem('values'))
-    : [];
-
-  const unReadBook = datas.filter((data) => data.isComplete == 0);
-
-  showData(unReadBook);
-}
-
 // Function to read data
 function showData(datas) {
   let value = '';
@@ -174,27 +138,34 @@ function showData(datas) {
     datas.length > 0 ? `${value} ${cardAddBook}` : cardAddBook;
 }
 
-function addData(e) {
-  let today = getToday();
-  const id = new Date();
+// Function to add new data
 
-  const payload = {
-    id: id.getTime(),
-    title: e.target['title'].value,
-    author: e.target['author'].value,
-    year: parseInt(e.target['year'].value),
-    note: e.target['note'].value,
-    isComplete: e.target['check'].checked,
-    time: today,
+function handleSubmit() {
+  return (e) => {
+    e.preventDefault();
+
+    const idBook = new Date();
+    const stringDate = new Intl.DateTimeFormat('en-GB', {
+      dateStyle: 'short',
+      timeStyle: 'short',
+      timeZone: 'Asia/Jakarta',
+    }).format(idBook);
+
+    const payload = {
+      id: idBook.getTime(),
+      title: e.target['title'].value,
+      author: e.target['author'].value,
+      year: parseInt(e.target['year'].value),
+      note: e.target['note'].value,
+      isComplete: e.target['check'].checked,
+      time: stringDate,
+    };
+
+    showToastNotification('Data has been successfully added.');
+
+    datas.push(payload);
+    localStorage.setItem('values', JSON.stringify(datas));
   };
-
-  const datas = localStorage.getItem('values')
-    ? JSON.parse(localStorage.getItem('values'))
-    : [];
-
-  datas.push(payload);
-
-  localStorage.setItem('values', JSON.stringify(datas));
 }
 
 function updateData(index) {
