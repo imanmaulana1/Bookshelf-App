@@ -174,11 +174,25 @@ function deleteData(id) {
 
 // ================================================ \\
 
-function printNavSidebar() {
-  const datas = localStorage.getItem('values')
-    ? JSON.parse(localStorage.getItem('values'))
-    : [];
+function showModal(idModal) {
+  return document.getElementById(`${idModal}`).classList.add('show');
+}
 
+function closeModal() {
+  const addModal = document.getElementById('add-modal');
+  addModal.classList.remove('show');
+
+  const updateModal = document.getElementById('update-modal');
+  updateModal.classList.remove('show');
+
+  const editModal = document.getElementById('edit-modal');
+  editModal.classList.remove('show');
+
+  const deleteModal = document.getElementById('delete-modal');
+  deleteModal.classList.remove('show');
+}
+
+function printNavSidebar() {
   let linkItem = '';
 
   const navSidebar = [
@@ -190,23 +204,23 @@ function printNavSidebar() {
     {
       icon: 'ri-book-open-line',
       name: 'Read',
-      length: datas.filter((data) => data.isComplete == 1).length,
+      length: datas.filter((item) => item.isComplete == true).length,
     },
     {
       icon: 'ri-book-line',
       name: 'Unread',
-      length: datas.filter((data) => data.isComplete == 0).length,
+      length: datas.filter((item) => item.isComplete != true).length,
     },
   ];
 
   navSidebar.map((item, idx) => {
     linkItem += `<li class="link-item ${idx == 0 ? 'active' : ''}">
-                  <div class="item-name">
-                      <i class="${item.icon}"></i>
-                      <h3>${item.name}</h3>
-                  </div>
-                  <span class="item-length">${item.length}</span>
-                  </li>`;
+                    <div class="item-name">
+                        <i class="${item.icon}"></i>
+                        <h3>${item.name}</h3>
+                    </div>
+                    <span class="item-length">${item.length}</span>
+                    </li>`;
   });
 
   return linkItem;
@@ -247,24 +261,6 @@ function hideSidebar() {
     sidebar.classList.toggle('show');
     sidebar.style.transition = 'all .4s ease';
   };
-}
-
-function showModal(idModal) {
-  return document.getElementById(`${idModal}`).classList.add('show');
-}
-
-function closeModal() {
-  const addModal = document.getElementById('add-modal');
-  addModal.classList.remove('show');
-
-  const updateModal = document.getElementById('update-modal');
-  updateModal.classList.remove('show');
-
-  const editModal = document.getElementById('edit-modal');
-  editModal.classList.remove('show');
-
-  const deleteModal = document.getElementById('delete-modal');
-  deleteModal.classList.remove('show');
 }
 
 // =============================================== //
