@@ -244,23 +244,22 @@ function updateData(id) {
     showToastNotification('Data has been successfully update.');
   };
 }
-function handleDelete(idx) {
+
+// Function to delete data
+function handleDelete(id) {
   showModal('delete-modal');
 
   const btnDelete = document.getElementById('btn-delete');
   btnDelete.addEventListener('click', () => {
-    deleteData(idx);
+    deleteData(id);
   });
 }
 
-function deleteData(index) {
-  const datas = localStorage.getItem('values')
-    ? JSON.parse(localStorage.getItem('values'))
-    : [];
+function deleteData(id) {
+  const result = datas.filter((item) => item.id !== id);
+  localStorage.setItem('values', JSON.stringify(result));
 
-  datas.splice(index, 1);
-  localStorage.setItem('values', JSON.stringify(datas));
-  location.reload();
+  showToastNotification('Data successfully deleted');
 }
 
 // =============================================== //
