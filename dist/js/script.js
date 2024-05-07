@@ -139,7 +139,6 @@ function showData(datas) {
 }
 
 // Function to add new data
-
 function handleSubmit() {
   return (e) => {
     e.preventDefault();
@@ -168,45 +167,83 @@ function handleSubmit() {
   };
 }
 
-function updateData(index) {
-  showModal('update-modal');
+// Function to edit status (read/unread)
+function handleEdit(id) {
+  showModal('edit-modal');
 
-  const datas = localStorage.getItem('values')
-    ? JSON.parse(localStorage.getItem('values'))
-    : [];
-
-  // Parse input field
-  const title = document.getElementById('title-update');
-  title.value = datas[index].title;
-
-  const author = document.getElementById('author-update');
-  author.value = datas[index].author;
-
-  const year = document.getElementById('year-update');
-  year.value = datas[index].year;
-
-  const note = document.getElementById('note-update');
-  note.value = datas[index].note;
-
-  const isChecked = document.getElementById('check-update');
-  isChecked.checked = datas[index].isComplete == 0 ? false : true;
-
-  // Submit Update
-  const btnUpdate = document.getElementById('form-update-book');
-  btnUpdate.addEventListener('submit', (e) => {
-    let today = getToday();
-
-    datas[index].title = e.target['title-update'].value;
-    datas[index].author = e.target['author-update'].value;
-    datas[index].year = parseInt(e.target['year-update'].value);
-    datas[index].note = e.target['note-update'].value;
-    datas[index].isComplete = e.target['check-update'].checked;
-    datas[index].time = today;
-
-    localStorage.setItem('values', JSON.stringify(datas));
+  const btnEdit = document.getElementById('btn-edit');
+  btnEdit.addEventListener('click', () => {
+    editData(id);
   });
 }
 
+function editData(id) {
+  const index = datas.map((data) => data.id).indexOf(id);
+  datas[index].isComplete = datas[index].isComplete == true ? false : true;
+
+  localStorage.setItem('values', JSON.stringify(datas));
+  showToastNotification(
+    `Data successfully moved to ${
+      datas[index].isComplete == true ? 'Read Shelf' : 'Unread Shelf'
+    }`
+  );
+}
+
+// Function to update data
+function handleUpdate(id) {
+  showModal('update-modal');
+
+  const title = document.getElementById('title-update');
+  const author = document.getElementById('author-update');
+  const year = document.getElementById('year-update');
+  const note = document.getElementById('note-update');
+  const check = document.getElementById('check-update');
+
+  datas
+    .filter((data) => data.id == id)
+    .map((data) => {
+      title.value = data.title;
+      author.value = data.author;
+      year.value = data.year;
+      note.value = data.note;
+      check.checked = data.isComplete;
+    });
+
+  const btnUpdate = document.getElementById('form-update-book');
+  btnUpdate.addEventListener('submit', updateData(id));
+}
+
+function updateData(id) {
+  return (e) => {
+    e.preventDefault();
+
+    const index = datas.map((data) => data.id).indexOf(id);
+
+    const datetime = new Date();
+    const stringDate = new Intl.DateTimeFormat('en-GB', {
+      dateStyle: 'short',
+      timeStyle: 'short',
+      timeZone: 'Asia/Jakarta',
+    }).format(datetime);
+
+    console.log(stringDate);
+
+    const payload = {
+      id: datas[index].id,
+      title: e.target['title'].value,
+      author: e.target['author'].value,
+      year: parseInt(e.target['year'].value),
+      note: e.target['note'].value,
+      isComplete: e.target['check'].checked,
+      time: stringDate,
+    };
+
+    datas[index] = payload;
+    localStorage.setItem('values', JSON.stringify(datas));
+
+    showToastNotification('Data has been successfully update.');
+  };
+}
 function handleDelete(idx) {
   showModal('delete-modal');
 
