@@ -1,93 +1,3 @@
-function printNavSidebar() {
-  const datas = localStorage.getItem('values')
-    ? JSON.parse(localStorage.getItem('values'))
-    : [];
-
-  let linkItem = '';
-
-  const navSidebar = [
-    {
-      icon: 'ri-home-6-line',
-      name: 'All Books',
-      length: datas.length,
-    },
-    {
-      icon: 'ri-book-open-line',
-      name: 'Read',
-      length: datas.filter((data) => data.isComplete == 1).length,
-    },
-    {
-      icon: 'ri-book-line',
-      name: 'Unread',
-      length: datas.filter((data) => data.isComplete == 0).length,
-    },
-  ];
-
-  navSidebar.map((item, idx) => {
-    linkItem += `<li class="link-item ${idx == 0 ? 'active' : ''}">
-                  <div class="item-name">
-                      <i class="${item.icon}"></i>
-                      <h3>${item.name}</h3>
-                  </div>
-                  <span class="item-length">${item.length}</span>
-                  </li>`;
-  });
-
-  return linkItem;
-}
-
-function getLinkItems() {
-  const linkItems = document.querySelectorAll('.link-item');
-
-  return linkItems;
-}
-
-function getCurrentDate() {
-  const dateObj = new Date().toUTCString();
-
-  return dateObj.slice(0, 16);
-}
-
-function getToday() {
-  let today = new Date();
-
-  let dd = today.getDate();
-  let mm = today.getMonth() + 1;
-
-  let yyyy = today.getFullYear();
-
-  dd = dd < 10 ? `0${dd}` : dd;
-
-  mm = mm < 10 ? `0${mm}` : mm;
-
-  today = `${dd}-${mm}-${yyyy}`;
-
-  return today;
-}
-
-function hideSidebar() {
-  return () => {
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.classList.toggle('show');
-    sidebar.style.transition = 'all .4s ease';
-  };
-}
-
-function showModal(idModal) {
-  return document.getElementById(`${idModal}`).classList.add('show');
-}
-
-function closeModal() {
-  const addModal = document.getElementById('add-modal');
-  addModal.classList.remove('show');
-
-  const updateModal = document.getElementById('update-modal');
-  updateModal.classList.remove('show');
-
-  const deleteModal = document.getElementById('delete-modal');
-  deleteModal.classList.remove('show');
-}
-
 // Function to read data
 function showData(datas) {
   let value = '';
@@ -260,6 +170,101 @@ function deleteData(id) {
   localStorage.setItem('values', JSON.stringify(result));
 
   showToastNotification('Data successfully deleted');
+}
+
+// ================================================ \\
+
+function printNavSidebar() {
+  const datas = localStorage.getItem('values')
+    ? JSON.parse(localStorage.getItem('values'))
+    : [];
+
+  let linkItem = '';
+
+  const navSidebar = [
+    {
+      icon: 'ri-home-6-line',
+      name: 'All Books',
+      length: datas.length,
+    },
+    {
+      icon: 'ri-book-open-line',
+      name: 'Read',
+      length: datas.filter((data) => data.isComplete == 1).length,
+    },
+    {
+      icon: 'ri-book-line',
+      name: 'Unread',
+      length: datas.filter((data) => data.isComplete == 0).length,
+    },
+  ];
+
+  navSidebar.map((item, idx) => {
+    linkItem += `<li class="link-item ${idx == 0 ? 'active' : ''}">
+                  <div class="item-name">
+                      <i class="${item.icon}"></i>
+                      <h3>${item.name}</h3>
+                  </div>
+                  <span class="item-length">${item.length}</span>
+                  </li>`;
+  });
+
+  return linkItem;
+}
+
+function getLinkItems() {
+  const linkItems = document.querySelectorAll('.link-item');
+
+  return linkItems;
+}
+
+function getCurrentDate() {
+  const dateObj = new Date().toUTCString();
+
+  return dateObj.slice(0, 16);
+}
+
+function getToday() {
+  let today = new Date();
+
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1;
+
+  let yyyy = today.getFullYear();
+
+  dd = dd < 10 ? `0${dd}` : dd;
+
+  mm = mm < 10 ? `0${mm}` : mm;
+
+  today = `${dd}-${mm}-${yyyy}`;
+
+  return today;
+}
+
+function hideSidebar() {
+  return () => {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('show');
+    sidebar.style.transition = 'all .4s ease';
+  };
+}
+
+function showModal(idModal) {
+  return document.getElementById(`${idModal}`).classList.add('show');
+}
+
+function closeModal() {
+  const addModal = document.getElementById('add-modal');
+  addModal.classList.remove('show');
+
+  const updateModal = document.getElementById('update-modal');
+  updateModal.classList.remove('show');
+
+  const editModal = document.getElementById('edit-modal');
+  editModal.classList.remove('show');
+
+  const deleteModal = document.getElementById('delete-modal');
+  deleteModal.classList.remove('show');
 }
 
 // =============================================== //
