@@ -124,45 +124,50 @@ function filterUnreadBook() {
   showData(unReadBook);
 }
 
-// CRUD FEATURE
-
-function showData(values) {
+// Function to read data
+function showData(datas) {
   let value = '';
 
-  values.map((data, idx) => {
+  datas.map((data) => {
     value += `
-        <div class="card">
-          <header class="card-header">
-            <div class="card-title">
-              <h2>${data.title}</h2>
-              <h3>${data.author}</h3>
+            <div class="card">
+              <header class="card-header">
+                <div class="card-title">
+                  <h2>${data.title}</h2>
+                  <h3>${data.author}</h3>
+                </div>
+                <span class="card-shelf ${
+                  data.isComplete == 1 ? 'success' : 'danger'
+                }" onclick="handleEdit(${data.id})">${
+      data.isComplete == 1 ? 'Read' : 'Unread'
+    }
+                </span>
+              </header>
+              <section class="card-desc">
+                <p>${data.note}</p>
+              </section>
+              <footer class="card-footer">
+                <p class="card-time">${data.time}</p>
+                <div class="card-cta">
+                  <button class="btn btn--delete" onclick="handleDelete(${
+                    data.id
+                  })"><i class="ri-delete-bin-line"></i></button>
+                  <button class="btn btn--update" onclick="handleUpdate(${
+                    data.id
+                  })"><i class="ri-edit-line"></i></button>
+                </div>
+              </footer>
             </div>
-            <span class="card-shelf ${
-              data.isComplete == 1 ? 'success' : 'danger'
-            }">${data.isComplete == 1 ? 'Read' : 'Unread'}
-            </span>
-          </header>
-          <section class="card-desc">
-            <p>${data.note}</p>
-          </section>
-          <footer class="card-footer">
-            <p class="card-time">${data.time}</p>
-            <div class="card-cta">
-              <button class="btn btn--delete" onclick="handleDelete(${idx})"><i class="ri-delete-bin-line"></i></button>
-              <button class="btn btn--update" onclick="updateData(${idx})"><i class="ri-edit-line"></i></button>
-            </div>
-          </footer>
-        </div>
-    `;
+        `;
 
     return value;
   });
 
   let cardAddBook = `
-                    <div class="card add-book">
-                      <button class="add" onclick="showModal('add-modal')"><i class="ri-add-line"></i></button>
-                    </div>
-                    `;
+                        <div class="card add-book">
+                          <button class="add" onclick="showModal('add-modal')"><i class="ri-add-line"></i></button>
+                        </div>
+                        `;
 
   const cardWrapper = document.querySelector('.card-wrapper');
   cardWrapper.innerHTML =
@@ -171,8 +176,10 @@ function showData(values) {
 
 function addData(e) {
   let today = getToday();
+  const id = new Date();
 
   const payload = {
+    id: id.getTime(),
     title: e.target['title'].value,
     author: e.target['author'].value,
     year: parseInt(e.target['year'].value),
@@ -250,17 +257,24 @@ function deleteData(index) {
 
 // =============================================== //
 
-const headerTitle = document.getElementById('#title');
+// index link nav
+let index = 0;
 
+// Get data from localstorage if none return empty array
+const datas = localStorage.getItem('values')
+  ? JSON.parse(localStorage.getItem('values'))
+  : [];
+
+// Print current date HTML
+const getCurrentDate = new Date().toUTCString().slice(0, 16);
+const currentDate = document.getElementById('#today');
+currentDate.innerText = getCurrentDate;
+
+// Print navigation sidebar HTML
 const navLinks = document.querySelector('.nav-links');
 navLinks.innerHTML = printNavSidebar();
 
-const collapseBtn = document.querySelector('.collapse');
-collapseBtn.addEventListener('click', hideSidebar());
-
-const currentDate = document.getElementById('#today');
-currentDate.innerText = getCurrentDate();
-
+// Set link active on click
 const linkItems = getLinkItems();
 linkItems.forEach((item, idx) => {
   item.addEventListener('click', function () {
@@ -274,15 +288,25 @@ linkItems.forEach((item, idx) => {
 
     this.classList.add('active');
 
+    const headerTitle = document.getElementById('#title');
+
     switch (idx) {
       case 0:
-        filterAllBook();
+        index = 0;
+        headerTitle.innerText = 'All Books';
+        showData(datas);
         break;
       case 1:
-        filterReadBook();
+        index = 1;
+        headerTitle.innerText = 'Read';
+        const readBook = datas.filter((item) => item.isComplete == true);
+        showData(readBook);
         break;
       case 2:
-        filterUnreadBook();
+        index = 2;
+        headerTitle.innerText = 'Unread';
+        const unReadBook = datas.filter((item) => item.isComplete != true);
+        showData(unReadBook);
         break;
       default:
         break;
@@ -290,6 +314,11 @@ linkItems.forEach((item, idx) => {
   });
 });
 
+// Hide Sidebar (Tablet Screen)
+const collapseBtn = document.querySelector('.collapse');
+collapseBtn.addEventListener('click', hideSidebar());
+
+// Show modal add book
 const btnAddBooks = document.querySelectorAll('.add');
 btnAddBooks.forEach((btnAddBook) => {
   btnAddBook.addEventListener('click', () => {
@@ -297,12 +326,21 @@ btnAddBooks.forEach((btnAddBook) => {
   });
 });
 
+// Close All Modal
 const btnCancelBooks = document.querySelectorAll('.btn--cancel');
 btnCancelBooks.forEach((btnCancelBook) => {
   btnCancelBook.addEventListener('click', () => {
     closeModal();
   });
 });
+
+// Submit form add data
+const myForm = document.getElementById('form-save-book');
+myForm.addEventListener('submit', handleSubmit());
+
+// Submit form search data
+const searchForm = document.getElementById('form-search-book');
+searchForm.addEventListener('submit', handleSearchData());
 
 // Darkmode
 const btnDarkMode = document.querySelectorAll('.darkmode');
@@ -335,13 +373,5 @@ btnDarkMode.forEach((item) => {
   });
 });
 
-// Submit save book
-const formSaveBook = document.getElementById('form-save-book');
-formSaveBook.addEventListener('submit', addData);
-
-// Show data when page is load
-const datas = localStorage.getItem('values')
-  ? JSON.parse(localStorage.getItem('values'))
-  : [];
-
+// Load all data when page is loaded
 document.onload = showData(datas);
