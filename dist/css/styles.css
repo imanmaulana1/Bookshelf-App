@@ -396,9 +396,14 @@ main {
   color: var(--text-clr);
 }
 
-.card-header h3 {
+.card-header :is(h3, p) {
   color: var(--text-accent-clr);
-  margin-top: 0.3rem;
+}
+
+.card-title {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
 }
 
 .card-shelf {
@@ -454,6 +459,10 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.card-header {
+  align-items: flex-start;
 }
 
 :is(.btn--update, .btn--delete) {
@@ -703,6 +712,10 @@ main {
 
   .header .darkmode:hover {
     color: var(--yellow);
+  }
+
+  #form-search-book {
+    width: 100%;
   }
 
   .header-search {

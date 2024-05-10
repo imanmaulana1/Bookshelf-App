@@ -9,6 +9,7 @@ function showData(datas) {
                 <div class="card-title">
                   <h2>${data.title}</h2>
                   <h3>${data.author}</h3>
+                  <p>(${data.year})</p>
                 </div>
                 <span class="card-shelf ${
                   data.isComplete == 1 ? 'success' : 'danger'
